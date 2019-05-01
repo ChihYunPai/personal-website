@@ -1,17 +1,27 @@
 from django.db import models
 from django.utils import timezone
 
+import hashlib
+
 # Create your models here.
+
 
 class Post(models.Model):
     """docstring for Post"""
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
+    slug = models.CharField(max_length=30)
     text = models.TextField()
     created_date = models.DateTimeField(
         default=timezone.now)
     published_date = models.DateTimeField(
         blank=True, null=True)
+
+    # print(text.get_prep_value())
+    # pause("pause")
+    # """for hash number"""
+    # encoded_text = text.encode('UTF-8')
+    # hash_number = hashlib.blake2b(encoded_text, digest_size=20).hexdigest()
 
     def publish(self):
         self.published_date = timezone.now()

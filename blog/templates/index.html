@@ -1,0 +1,15 @@
+<!-- index.html -->
+{% extends 'base.html' %}
+{% block title %} Welcome to my blog! {% endblock %}
+{% block headmessage %}
+    <h3 style='font-family: 標楷體;'>article list</h3>
+{% endblock %}
+{% block content %}
+    <p>===test for content</p> <!--to be removed-->
+    {% for post in posts %}
+        <p>===test for posts for loop</p> <!--to be removed-->
+        <p style="font-family: 微軟正黑體;font-size: 14pt;font-weight: bold;">
+                <a href="/post/{{post.slug}}">{{ post.title }}</a>
+        </p>
+    {% endfor %}
+{% endblock %}
