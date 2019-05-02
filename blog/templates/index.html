@@ -1,13 +1,29 @@
 <!-- index.html -->
 {% extends 'base.html' %}
+{% load markdown_deux_tags %}
 {% block title %} Welcome to my blog! {% endblock %}
 {% block headmessage %}
     <h3 style='font-family: 標楷體;'>article list</h3>
 {% endblock %}
 {% block content %}
     {% for post in posts %}
-        <p style="font-family: 微軟正黑體;font-size: 14pt;font-weight: bold;">
-                <a href="/post/{{post.slug}}">{{ post.title }}</a>
-        </p>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <p style="font-family: 微軟正黑體;font-size: 14pt;font-weight: bold;">
+                    <a href="/post/{{post.slug}}">{{ post.title }}</a>
+                </p>
+            </div>
+            <div class="panel-body" style="background-color: #ffffdd">
+                <p>
+                    {{ post.text | truncatechars:40 | markdown | safe}}
+                </p>
+            </div>
+            <div class="panel-fotter" style="background-color: #efefef">
+                <p>
+                    發布時間：{{ post.published_date | date:"Y M d, h:m:s" }}
+                </p>
+            </div>
+        </div>
+        <br>
     {% endfor %}
 {% endblock %}

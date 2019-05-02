@@ -1,11 +1,14 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import HttpResponse
+
 from .models import Post
+from .models import NewTable
+from .models import Product
+
 from datetime import datetime
 
 # Create your views here.
-
 
 def homepage(request):
     posts = Post.objects.all()
@@ -25,3 +28,10 @@ def showpost(request, slug):
             return render(request, 'post.html', locals())
     except:
         return redirect('/')
+
+def about(request):
+    return render(request, 'about.html', locals())
+
+def productlist(request):
+    products = Product.objects.all()
+    return render(request, 'productlist.html', locals())
