@@ -1,8 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-import hashlib
-
 # Create your models here.
 
 
