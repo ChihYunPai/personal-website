@@ -49,6 +49,7 @@ class Product(models.Model):
         ('M', 'Medium'),
         ('L', 'Large'),
     )
+    sku = models.CharField(max_length=50)
     brand = models.CharField(max_length=10)
     name = models.CharField(max_length=20)
     price = models.PositiveIntegerField()
@@ -56,4 +57,45 @@ class Product(models.Model):
     qty = models.PositiveIntegerField()
 
     def __str__(self):
-        return '<brand: {}, model: {}, price: {}, size: {}, qty: {}>'.format(self.brand, self.name, self.price, self.size, self.qty)
+        return '<sku: {}, brand: {}, model: {}, price: {}, size: {}, qty: {}>'.format(self.sku, self.brand, self.name, self.price, self.size, self.qty)
+
+
+class Maker(models.Model):
+    """docstring for Maker"""
+    name = models.CharField(max_length=30)
+    country = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
+
+class ProductModel(models.Model):
+    """docstring for PModel"""
+    maker = models.ForeignKey(Maker, on_delete=models.CASCADE)
+    name = models.CharField(max_length=30)
+    url = models.URLField(default='http://i.imgur.com/Ous4iGB.png')
+
+    def __str__(self):
+        return self.name
+
+
+class PhoneProduct(models.Model):
+    """docstring for PhoneProduct"""
+    product_model = models.ForeignKey(ProductModel, on_delete=models.CASCADE)
+    name = models.CharField(max_length=20, default='超值二手機')
+    description = models.TextField(default='暫無說明')
+    year = models.PositiveIntegerField(default=2016)
+    price = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.name
+
+
+class ProductPhoto(models.Model):
+    """docstring for ProductPhoto"""
+    prodcut = models.ForeignKey(PhoneProduct, on_delete=models.CASCADE)
+    description = models.CharField(max_length=30, default='產品照片')
+    url = models.URLField(default='http://i.imgur.com/Z230eeq.png')
+
+    def __str__(self):
+        return self.description

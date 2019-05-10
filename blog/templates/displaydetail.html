@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product - {{ requested_product.brand }} {{ requested_product.name }}</title>
+</head>
+<body>
+    <h3>Product - {{ requested_product.brand }} {{ requested_product.name }}</h3>
+    <hr>
+    <table width=400 border=1 bgcolor="#ccffcc">
+        <tr>
+            <td>Brand</td>
+            <td>Model</td>
+            <td>Price</td>
+            <td>Quantity</td>
+        </tr>
+        <tr>
+            <td>{{ requested_product.brand }}</td>
+            <td>{{ requested_product.name }}</td>
+            <td>{{ requested_product.price }}</td>
+            <td>{{ requested_product.qty }}</td>
+        </tr>
+    </table>
+    <a href="/productlist/">back to product list</a>
+</body>
+</html>

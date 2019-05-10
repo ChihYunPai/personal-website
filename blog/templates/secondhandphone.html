@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>中古機賣場</title>
+</head>
+<body>
+    <!-- header -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="navbar-brand" align="center">
+                    中古機賣場
+                </div>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="/admin">後台管理</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- content -->
+    {% block content %}
+    <div class="container" align="center">
+        {% for product in products %}
+        {% if forloop.first %}
+        <table>
+            <tr bgcolor="cccccc">
+                <td width=150>庫存手機</td>
+                <td width=150>廠牌/型號</td>
+                <td width=100>出廠年份</td>
+                <td width=100>價格</td>
+            </tr>
+        {% endif %}
+            <tr bgcolor="{% cycle '#ffccff' 'ccffcc' %}">
+                <td>{{ product.name }}</td>
+                <td>{{ product.product_model.maker.name }}/{{ product.product_model.name }}</td>
+                <td>{{ product.year }}</td>
+                <td align="right">{{ product.price }}</td>
+            </tr>
+        {% if forloop.last %}
+        </table>
+        {% endif %}
+        {% empty %}
+        <h3>目前沒有庫存的中古機可賣</h3>
+        {% endfor %}
+    </div>
+    {% endblock %}
+</body>
+</html>

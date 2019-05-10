@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TV - LIVE News</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class='container-fluid'>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">現在播出{{ tv.name }}</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+                {% for sub_tv in tv_list %}
+                    <li><a href="{% url 'tv-url' forloop.counter0 %}">{{ sub_tv.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div id="tvcode" align="center">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/{{tv.tvcode}}?autoplay=1&enablejsapi=1" frameborder="0" gesture="media" allow="accelerometer; autoplay; encrypted-media; enablejsapi; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+</body>
+</html>
+

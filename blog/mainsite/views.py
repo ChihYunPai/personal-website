@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+
 from django.http import HttpResponse
+from django.http import Http404
 
 from .models import Post
 from .models import NewTable
 from .models import Product
+from .models import PhoneProduct
 
 from datetime import datetime
 
@@ -35,3 +38,30 @@ def about(request):
 def productlist(request):
     products = Product.objects.all()
     return render(request, 'productlist.html', locals())
+
+def displaydetail(request, sku):
+    try:
+        requested_product = Product.objects.get(sku=sku)
+    except Product.DoesNotExist:
+        raise Http404('Can not find the requested product no.{}.'.format(sku))
+    return render(request, 'displaydetail.html', locals())
+
+def tv(request, tvno=0):
+    tv_list = [
+        {'name': 'TVBS', 'tvcode': 'Hu1FkdAOws0'},
+        {'name': '東森新聞', 'tvcode': 'dxpWqjvEKaM'},
+        {'name': '東森財經新聞', 'tvcode': 'tLyxttcv_IY'},
+        {'name': '中天新聞', 'tvcode': 'wUPPkSANpyo'},
+        {'name': '三立新聞', 'tvcode': '4ZVUmEUFwaY'},
+        {'name': '三立iNEWS新聞', 'tvcode': 'fNc3b_f3BFw'},
+        {'name': '台視新聞', 'tvcode': 'NbjI0cARzjQ'},
+    ]
+    now = datetime.now()
+    tvno = tvno
+    tv = tv_list[tvno]
+    return render(request, 'tv.html', locals())
+
+def secondhandphone(request):
+    products = PhoneProduct.objects.all()
+
+    return render(request, "secondhandphone.html", locals())
